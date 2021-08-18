@@ -152,7 +152,7 @@
 				</div>
 				<div class="grid_4">
 					<div class="block1">
-						<time datetime="2014-01-01">1600$</time>
+						<time id="startingValue" datetime="2014-01-01">$</time>
 						<div class="extra_wrapper">
 							<div class="text1 col1" style="margin-top: 15px;">Starting Value</div>
 						</div>
@@ -160,7 +160,7 @@
 				</div>
 				<div class="grid_4">
 					<div class="block1">
-						<time datetime="2014-01-01">07</time>
+						<time id="spotsAvailables" datetime="2014-01-01"></time>
 						<div class="extra_wrapper">
 							<div class="text1 col1" style="margin-top: 15px;">Spots Available</div>
 						</div>
@@ -200,15 +200,34 @@
 			});
 		</script>
 		<script>
-			var requestOptions = {
-				method: 'GET',
-				redirect: 'follow'
-				};
+			const urlServer = "http://localhost:3000/dev/package/";
+			const spotsAvailables = document.getElementById('spotsAvailables');
+			const startingValue = document.getElementById('startingValue');
+			
 
-				fetch("http://localhost:3000/dev/package/3", requestOptions)
-				.then(response => response.json())
-				.then(result => console.log(result.data[0]))
-				.catch(error => console.log('error', error));
+			function updateValues (data) {
+				spotsAvailables.innerText = data.SpotsAvailable;
+				startingValue.innerText = `$ ${data.StartingValue}`;
+			}
+
+			function getPackage (id) {
+				var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+					};
+	
+					fetch(urlServer + id, requestOptions)
+					.then(response => response.json())
+					.then(result => {
+						console.log(result.data[0]);
+						updateValues(result.data[0]);
+					})
+					.catch(error => console.log('error', error));
+			}
+
+			getPackage(3);
+
+
 		</script>
 	</body>
 </html>
