@@ -89,7 +89,7 @@
 						<h2>PARIS</h2>
 						<div class="price">
 							FROM
-							<span>$1600</span>
+							<span id="startingValue1">$</span>
 						</div>
 						<a href="#">LEARN MORE</a>
 					</div>
@@ -99,7 +99,7 @@
 						<h2>PARIS</h2>
 						<div class="price">
 							FROM
-							<span>$1600</span>
+							<span id="startingValue2">$</span>
 						</div>
 						<a href="#">LEARN MORE</a>
 					</div>
@@ -109,7 +109,7 @@
 						<h2>PARIS</h2>
 						<div class="price">
 							FROM
-							<span>$1600</span>
+							<span id="startingValue3">$</span>
 						</div>
 						<a href="#">LEARN MORE</a>
 					</div>
@@ -202,12 +202,17 @@
 		<script>
 			const urlServer = "http://localhost:3000/dev/package/";
 			const spotsAvailables = document.getElementById('spotsAvailables');
-			const startingValue = document.getElementById('startingValue');
+			const startingValue = document.getElementById('startingValue')
+			const startingValue1 = document.getElementById('startingValue1')
+			const startingValue2 = document.getElementById('startingValue2')
+			const startingValue3 = document.getElementById('startingValue3')
 			
-
 			function updateValues (data) {
 				spotsAvailables.innerText = data.SpotsAvailable;
 				startingValue.innerText = `$ ${data.StartingValue}`;
+				startingValue1.innerText = `$ ${data.StartingValue}`;
+				startingValue2.innerText = `$ ${data.StartingValue}`;
+				startingValue3.innerText = `$ ${data.StartingValue}`;
 			}
 
 			function getPackage (id) {
@@ -219,14 +224,12 @@
 					fetch(urlServer + id, requestOptions)
 					.then(response => response.json())
 					.then(result => {
-						console.log(result.data[0]);
 						updateValues(result.data[0]);
 					})
 					.catch(error => console.log('error', error));
 			}
 
 			getPackage(3);
-
 
 		</script>
 	</body>
